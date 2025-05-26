@@ -1,0 +1,65 @@
+#  Define the level of verbosity of messages
+/ds/manager/log routine # options: debugging, development, trace, routine, warning, error
+/ds/manager/verbosity -1 #-1 
+/ds/manager/checkoverlap 0 #0
+/ds/manager/eventcounter 1
+/ds/manager/writephotons 1 #0
+/ds/manager/writedaughters 1 #0
+/ds/manager/writedeposits 1 #0
+
+#/ds/manager/fast_simulation 0
+
+# Detector configurations:
+#ds50_full ds50_tpc_veto ds50_tpc ds20k ds20k_tpc dsproto dsproto0 red_tpc dart ardm tester
+
+/ds/detector/configuration ds20k
+/ds/detector/ds20k_SiPMsNumber 100                #default: 100
+
+#/ds/detector/ds20_HDPEShell_Thick		#default: 5 cm
+#/ds/detector/ds20_HDPEShellCap_Thick 5 cm	#default: 0 cm
+
+# cryostat commands
+/ds/detector/vetoyieldfactor 1.0
+#/ds/detector/PENonGAr 1  			# default: 0
+#/ds/detector/PENonCryo 0			# default: 1
+#/ds/detector/cryo_reflector                    # 0 = no reflector, 1 = lumirror, 2=Tyvek ; default: Lumirror
+#/ds/detector/cryo_pdu_wls			# 0 = no WLS, 1 = TPB, 2 = PEN ; default: PEN
+#/ds/detector/HDPEShield_pdu_config 2		# 0 = no HDPE PDUs, 1 = PDUs on HDPE wall/top/bottom, 2 =PDUs on HDPE wall/bottom ; default: 2
+#/ds/detector/ds20_PDUAcrylic_Thick		# Acrylic thickness (mm, cm) Default: 20 mm
+
+#placemnet of neutron veto SiPMs
+/ds/detector/ds20k_SiPMs 1                      #default: 1 (true)
+
+#Define the hadronic physics list (none HP QGSP_BERT_HP QGSP_BIC_HP FTF_BIC_HP FTFP_BERT_HP)
+/ds/physics/hadronic_list none
+
+/ds/manager/time_cut 20 s
+
+#Define the physics lists
+/ds/physics/em_list livermore
+/ds/physics/tuned200V 1
+/ds/physics/killS1S2 1
+/ds/physics/HPRangeCuts 0
+/ds/physics/cherenkov 0 #1
+
+# Define random seed
+/run/heprandomseed 12345678
+
+# Define output file name
+/run/filename NuEAbs_Boll_NO
+
+#-----------------------------------
+/run/initialize
+#-----------------------------------
+/ds/generator/select ar40recoil
+/ds/generator/particle e-
+/ds/generator/ar40/setCSVFile NuEAbs_Boll_NO_143_rows.csv
+
+
+#/ds/generator/select G4Gun
+#/ds/generator/particle Ar40 #opticalphoton  e-
+#/ds/generator/energy 25 keV  #9.8 eV 
+#/ds/generator/position 2.63, 0.0, 0.0 mm
+#/ds/generator/direction -1.0 0.0 0.0
+/ds/generator/outer_veto 1
+/run/beamOn 143

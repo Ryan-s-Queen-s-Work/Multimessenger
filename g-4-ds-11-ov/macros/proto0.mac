@@ -1,0 +1,84 @@
+# To run with visualization: ./g4ds ../macros/proto-0.mac Qt
+
+/ds/manager/log trace
+/ds/manager/verbosity 0
+/ds/manager/checkoverlap 1
+#Enable/disable fast simulation
+#
+#/ds/manager/fast_simulation 0
+#
+/ds/manager/eventcounter 100
+/ds/manager/writephotons 0
+/ds/manager/writedeposits 1
+/ds/manager/writedaughters 0
+
+
+# Define output file name
+/run/filename test
+
+# Define  random seed
+#/run/heprandomseed 127677
+
+#Define the hadronic physics list (none HP QGSP_BERT_HP QGSP_BIC_HP FTF_BIC_HP FTFP_BERT_HP)
+# /ds/physics/hadronic_list HP
+/ds/physics/hadronic_list none
+
+#Define the EM physics list (standard livermore)
+/ds/physics/em_list livermore
+#
+# Null field
+/ds/physics/DriftField 0 V/cm
+/ds/physics/tuned200V   1
+
+#Suppress both S1 and S2 
+#/ds/physics/killS1S2 0
+
+#Generate S1 onlt
+/ds/physics/killS2 true
+
+#Detector configuration:
+/ds/detector/configuration dsproto0
+/ds/detector/protoproto/buildfloor false
+/ds/detector/protoproto/buildscintillator true
+/ds/detector/protoproto/singlephase true
+
+#-----------------------------------
+/run/initialize
+#-----------------------------------
+
+#------------------------------------
+/vis/open OGLSQt
+/vis/drawVolume worlds
+#/vis/viewer/set/style surface
+/vis/viewer/set/auxiliaryEdge true
+/vis/viewer/set/lineSegmentsPerCircle 100
+/vis/viewer/set/hiddenMarker true
+#
+# Re-establish auto refreshing and verbosity:
+/vis/viewer/set/autoRefresh true
+
+
+/ds/generator/select G4Gun
+/ds/generator/particle e-
+#/ds/generator/particle  geantino
+/ds/generator/energy 10 keV
+
+# Block for pencil beam
+# Active volume has z in [-370,-250] mm
+/ds/generator/position  0 0 -31 cm #middle of the LAr
+#/ds/generator/position  0 0 100 cm
+/ds/generator/direction  0 0 -1 
+
+# Block for confined isotropic source
+# If the confinement is active, the direction is always isotropic
+#
+#/ds/generator/postype Volume		       
+#/ds/generator/posshape Sphere
+#/ds/generator/setradius 20 cm
+#/ds/generator/set_center 0 0 -310 mm #This is the center of Active Volume
+#/ds/generator/confine ActiveLAr
+#
+
+# Define the number of events
+/tracking/verbose 0
+/run/beamOn 1000

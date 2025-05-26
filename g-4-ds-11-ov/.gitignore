@@ -1,0 +1,14 @@
+build/
+env.sh
+*~
+tools/g4dart
+tools/g4merger
+tools/g4rooter
+tools/g4rooter_ariser
+tools/g4rooter_full
+tools/g4rooter_lm
+tools/g4rooter_nDS20k
+tools/g4rooter_nDS20k_VETO
+tools/g4rooter_prereco
+tools/g4rooter_reco
+tools/g4rooter_proto0
