@@ -196,6 +196,7 @@ void collect_fluxes(bool Garching = true, bool Bollig = true){
     hNuXFlux = buildFlux("./fluxes_data/Garching1D/11Msun/neutrino_signal_nu_x_LS220-s11.2c.data","hNuXFlux");
 
     TFile *fout = new TFile("./fluxes/Garching11D_11Msun.root","recreate");
+    //TFile *fout = new TFile("/fluxes/Garching11D_11Msun.root");
     hNuEFlux->Write("hNuEFlux");
     hNuEbFlux->Write("hNuEbFlux");
     hNuXFlux->Write("hNuXFlux");
